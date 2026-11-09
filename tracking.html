@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Request | BIST</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">BIST<span>PRINT.</span></a>
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="services.html">SERVICES</a>
+        <a href="request.html">PRINT REQUEST</a>
+        <a href="schedule.html">SCHEDULE</a>
+        <a href="tracking.html" class="active">TRACK REQUEST</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+</header>
+
+<section class="page-banner">
+    <h1>Track Your Printing Request</h1>
+    <p>Stay updated with the progress of your printing order.</p>
+</section>
+
+<section class="section">
+
+    <div class="form-container" style="max-width:650px;text-align:center;">
+
+        <div class="card-icon" style="margin:0 auto 20px;">🔍</div>
+
+        <h2>Check Request Status</h2>
+
+        <p style="color:#756b71;margin-bottom:25px;">
+            Enter the Request ID provided after submitting your printing request.
+        </p>
+
+        <form action="#" method="get">
+
+            <div class="form-group">
+                <label>Printing Request ID</label>
+                <input type="text" name="request_id" placeholder="Example: BIST-123456" required>
+            </div>
+
+            <button type="submit" class="btn">TRACK MY REQUEST</button>
+
+        </form>
+
+    </div>
+
+    <div class="status-card" style="margin-top:30px;">
+        <h2 style="color:#a92e65;margin-bottom:20px;">Request Status Guide</h2>
+
+        <p><span class="status">Pending</span> - Waiting for review</p>
+        <br>
+        <p><span class="status" style="background:#e6efff;color:#315f9c;">Approved</span> - Request accepted</p>
+        <br>
+        <p><span class="status" style="background:#fce0eb;color:#a92e65;">Processing</span> - Documents are being printed</p>
+        <br>
+        <p><span class="status" style="background:#e0f7e9;color:#247449;">Completed</span> - Ready for pickup</p>
+    </div>
+
+</section>
+
+<footer>
+    <h2>BIST PRINT.</h2>
+    <p>© 2026 BIST Printing System. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

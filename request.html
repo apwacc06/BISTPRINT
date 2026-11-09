@@ -1,0 +1,1052 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Printing Request | BIST</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fff7fb;
+    color: #333;
+}
+
+/* HEADER */
+header {
+    background: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 3px 15px rgba(180,40,110,.08);
+}
+
+.logo {
+    text-decoration: none;
+    color: #333;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #e94b9b;
+}
+
+nav {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none;
+    color: #555;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+nav a:hover,
+nav a.active {
+    color: #e94b9b;
+}
+
+.login-btn {
+    background: #e94b9b;
+    color: white !important;
+    padding: 10px 17px;
+    border-radius: 20px;
+}
+
+/* BANNER */
+.page-banner {
+    text-align: center;
+    padding: 65px 20px;
+    background: linear-gradient(135deg,#f9c5df,#e94b9b);
+    color: white;
+}
+
+.page-banner h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+/* MAIN */
+.section {
+    padding: 50px 6%;
+}
+
+.form-container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(180,40,110,.10);
+}
+
+.form-container h2 {
+    color: #c21870;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background: #fff0f7;
+    border-left: 4px solid #e94b9b;
+    padding: 15px;
+    border-radius: 7px;
+    color: #884064;
+    margin-bottom: 28px;
+    font-size: 14px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #e8c5d8;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background: #fffafd;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #e94b9b;
+    box-shadow: 0 0 0 3px rgba(233,75,155,.10);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* PRINTING OPTIONS */
+.section-heading {
+    color: #c21870;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.section-description {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.service-list {
+    display: grid;
+    gap: 15px;
+}
+
+.service-option {
+    display: grid;
+    grid-template-columns: 35px 1fr 150px 150px;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    background: #fff7fb;
+    border: 1px solid #f1c5da;
+    border-radius: 12px;
+    transition: .2s;
+}
+
+.service-option:has(input[type="checkbox"]:checked) {
+    border: 2px solid #e94b9b;
+    background: #fff0f7;
+}
+
+.service-option input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #e94b9b;
+    cursor: pointer;
+}
+
+.service-name {
+    color: #4a2540;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.service-price {
+    display: block;
+    color: #c21870;
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.quantity-field label {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 6px;
+}
+
+.quantity-field input {
+    padding: 10px;
+}
+
+.quantity-field input:disabled {
+    background: #eee;
+    cursor: not-allowed;
+}
+
+/* PRICE TABLE */
+.price-container {
+    background: #fff5fa;
+    border: 1px solid #f3c1d9;
+    border-radius: 14px;
+    padding: 25px;
+}
+
+.price-table,
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.price-table th,
+.summary-table th {
+    background: #e94b9b;
+    color: white;
+    padding: 14px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.price-table td,
+.summary-table td {
+    padding: 13px;
+    border-bottom: 1px solid #f3d5e4;
+    font-size: 14px;
+}
+
+.price-table td:last-child {
+    color: #c21870;
+    font-weight: bold;
+}
+
+/* ORDER SUMMARY */
+.summary-container {
+    background: #fff5fa;
+    border: 2px solid #efb4d2;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.summary-container h2 {
+    color: #c21870;
+    margin-bottom: 8px;
+}
+
+.summary-description {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 25px;
+    color: #999;
+    background: white;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.total-box {
+    margin-top: 20px;
+    padding: 22px;
+    background: #e94b9b;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.total-box span {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.total-box strong {
+    font-size: 26px;
+}
+
+.note {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #777;
+    line-height: 1.6;
+}
+
+/* BUTTON */
+.btn {
+    width: 100%;
+    border: none;
+    background: #e94b9b;
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: #c21870;
+}
+
+/* SUCCESS POPUP */
+.success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(40, 10, 28, 0.65);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.success-overlay.show {
+    display: flex;
+    animation: fadeIn .3s ease;
+}
+
+.success-modal {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 35px 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0,0,0,.2);
+    animation: popup .4s ease;
+}
+
+.success-icon {
+    width: 85px;
+    height: 85px;
+    background: #ffe4f1;
+    color: #e94b9b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    margin: 0 auto 20px;
+    animation: pulse 1s infinite;
+}
+
+.success-modal h2 {
+    color: #c21870;
+    margin-bottom: 12px;
+    font-size: 25px;
+}
+
+.success-modal p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.success-modal button {
+    background: #e94b9b;
+    color: white;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.success-modal button:hover {
+    background: #c21870;
+    transform: scale(1.04);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: scale(.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    background: #351629;
+    color: white;
+    padding: 30px 20px;
+}
+
+footer h2 {
+    color: #ff9acb;
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: 13px;
+    color: #e8cbd9;
+}
+
+/* RESPONSIVE */
+@media(max-width: 750px) {
+    header {
+        justify-content: center;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .form-container {
+        padding: 22px 16px;
+    }
+
+    .service-option {
+        grid-template-columns: 30px 1fr;
+    }
+
+    .quantity-field {
+        grid-column: 2;
+    }
+
+    .total-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .page-banner h1 {
+        font-size: 28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <a href="index.html" class="logo">BIST<span>PRINT.</span></a>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="services.html">SERVICES</a>
+        <a href="request.html" class="active">PRINT REQUEST</a>
+        <a href="schedule.html">SCHEDULE</a>
+        <a href="tracking.html">TRACK REQUEST</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+        
+    </nav>
+</header>
+
+<!-- BANNER -->
+<section class="page-banner">
+    <h1>Online Printing Request</h1>
+    <p>Choose your printing services and see your estimated total instantly.</p>
+</section>
+
+<!-- MAIN FORM -->
+<section class="section">
+<div class="form-container">
+
+    <h2>Student Printing Information</h2>
+
+    <div class="info-box">
+        Please provide your information and select the printing services
+        you need. Your estimated total will automatically appear below.
+    </div>
+
+    <form id="requestForm">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" name="fullname"
+                       placeholder="Enter full name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Student ID *</label>
+                <input type="text" name="student_id"
+                       placeholder="Enter student ID" required>
+            </div>
+
+            <div class="form-group">
+                <label>Course / Program *</label>
+                <input type="text" name="course"
+                       placeholder="Enter your course" required>
+            </div>
+
+            <div class="form-group">
+                <label>Year Level *</label>
+                <select name="year_level" required>
+                    <option value="">Select year level</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+                    <option>4th Year</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Paper Size *</label>
+                <select name="paper_size" required>
+                    <option value="">Select paper size</option>
+                    <option>A4</option>
+                    <option>Short</option>
+                    <option>Long</option>
+                    <option>Legal</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Printing Type *</label>
+                <select name="printing_type" required>
+                    <option value="">Select type</option>
+                    <option>Single-sided</option>
+                    <option>Double-sided</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Deadline *</label>
+                <input type="date" name="deadline" id="deadline" required>
+            </div>
+
+            <div class="form-group">
+                <label>Attach File</label>
+                <input type="file" name="document"
+                       accept=".pdf,.doc,.docx,.jpg,.png">
+            </div>
+
+            <!-- PRINTING SERVICES -->
+            <div class="form-group full">
+
+                <h2 class="section-heading">Select Printing Services</h2>
+
+                <p class="section-description">
+                    Check the services you want and enter the quantity.
+                    The price will be calculated automatically.
+                </p>
+
+                <div class="service-list">
+
+                    <!-- BLACK AND WHITE -->
+                    <div class="service-option">
+                        <input type="checkbox" class="service-check"
+                               data-name="Black and White Printing"
+                               data-price="2" id="bw">
+
+                        <div>
+                            <label for="bw" class="service-name">
+                                Black and White Printing
+                            </label>
+                            <span class="service-price">₱2.00 per page</span>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Pages</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-quantity" disabled>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Copies</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-copies" disabled>
+                        </div>
+                    </div>
+
+                    <!-- COLORED -->
+                    <div class="service-option">
+                        <input type="checkbox" class="service-check"
+                               data-name="Colored Printing"
+                               data-price="5" id="colored">
+
+                        <div>
+                            <label for="colored" class="service-name">
+                                Colored Printing
+                            </label>
+                            <span class="service-price">₱5.00 per page</span>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Pages</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-quantity" disabled>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Copies</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-copies" disabled>
+                        </div>
+                    </div>
+
+                    <!-- DOCUMENT -->
+                    <div class="service-option">
+                        <input type="checkbox" class="service-check"
+                               data-name="Document Printing"
+                               data-price="2" id="document">
+
+                        <div>
+                            <label for="document" class="service-name">
+                                Document Printing
+                            </label>
+                            <span class="service-price">₱2.00 per page</span>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Pages</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-quantity" disabled>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Copies</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-copies" disabled>
+                        </div>
+                    </div>
+
+                    <!-- PHOTO -->
+                    <div class="service-option">
+                        <input type="checkbox" class="service-check"
+                               data-name="Photo Printing"
+                               data-price="10" id="photo">
+
+                        <div>
+                            <label for="photo" class="service-name">
+                                Photo Printing
+                            </label>
+                            <span class="service-price">₱10.00 per photo</span>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Photos</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-quantity" disabled>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Copies</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-copies" disabled>
+                        </div>
+                    </div>
+
+                    <!-- THESIS -->
+                    <div class="service-option">
+                        <input type="checkbox" class="service-check"
+                               data-name="Thesis and Research"
+                               data-price="2" id="thesis">
+
+                        <div>
+                            <label for="thesis" class="service-name">
+                                Thesis and Research
+                            </label>
+                            <span class="service-price">₱2.00 per page</span>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Pages</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-quantity" disabled>
+                        </div>
+
+                        <div class="quantity-field">
+                            <label>Copies</label>
+                            <input type="number" min="1" value="1"
+                                   class="service-copies" disabled>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ADDITIONAL INSTRUCTIONS -->
+            <div class="form-group full">
+                <label>Additional Instructions</label>
+                <textarea name="instructions"
+                          placeholder="Enter special instructions..."></textarea>
+            </div>
+
+            <!-- PRICE LIST -->
+            <div class="form-group full">
+
+                <div class="price-container">
+                    <h2 class="section-heading">Printing Price List</h2>
+
+                    <p class="section-description">
+                        Reference rates for the available printing services.
+                    </p>
+
+                    <div class="table-wrapper">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Printing Service</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Black and White Printing</td>
+                                    <td>₱2.00 / page</td>
+                                </tr>
+                                <tr>
+                                    <td>Colored Printing</td>
+                                    <td>₱5.00 / page</td>
+                                </tr>
+                                <tr>
+                                    <td>Document Printing</td>
+                                    <td>₱2.00 / page</td>
+                                </tr>
+                                <tr>
+                                    <td>Photo Printing</td>
+                                    <td>₱10.00 / photo</td>
+                                </tr>
+                                <tr>
+                                    <td>Thesis and Research</td>
+                                    <td>₱2.00 / page</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="note">
+                        Note: These are sample rates. Update them based on
+                        the official BIST printing service prices.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- ORDER SUMMARY -->
+            <div class="form-group full">
+
+                <div class="summary-container">
+
+                    <h2>Order Summary</h2>
+
+                    <p class="summary-description">
+                        Your selected printing services and estimated costs
+                        will appear here automatically.
+                    </p>
+
+                    <div id="emptyMessage" class="empty-message">
+                        No printing service selected yet.
+                        Please select a service above.
+                    </div>
+
+                    <div class="table-wrapper" id="summaryWrapper"
+                         style="display:none;">
+
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="summaryBody"></tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="total-box">
+                        <span>GRAND TOTAL</span>
+                        <strong id="grandTotal">₱0.00</strong>
+                    </div>
+
+                    <p class="note">
+                        This is an estimated amount based on the selected
+                        services, pages, and copies. Final charges may be
+                        confirmed by the printing service.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- SUBMIT -->
+            <div class="form-group full">
+
+                <button type="submit" class="btn">
+                    SUBMIT PRINTING REQUEST →
+                </button>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+</section>
+
+<!-- SUCCESS POPUP -->
+<div class="success-overlay" id="successPopup">
+
+    <div class="success-modal">
+
+        <div class="success-icon">✓</div>
+
+        <h2>Successfully Submitted!</h2>
+
+        <p>
+            Your printing request has been successfully submitted.
+            Thank you for using BIST PRINT!
+            <br><br>
+            Please wait for confirmation from the printing service.
+        </p>
+
+        <button type="button" onclick="closeSuccessPopup()">
+            OKAY, THANK YOU!
+        </button>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <h2>BIST PRINT.</h2>
+    <p>© 2026 BIST Printing System. All Rights Reserved.</p>
+</footer>
+
+<script>
+const serviceChecks = document.querySelectorAll(".service-check");
+
+const summaryBody = document.getElementById("summaryBody");
+const grandTotal = document.getElementById("grandTotal");
+const emptyMessage = document.getElementById("emptyMessage");
+const summaryWrapper = document.getElementById("summaryWrapper");
+
+const requestForm = document.getElementById("requestForm");
+const successPopup = document.getElementById("successPopup");
+
+/* PESO FORMAT */
+function peso(amount) {
+    return "₱" + amount.toLocaleString("en-PH", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+/* AUTOMATIC CALCULATION */
+function calculateTotal() {
+
+    summaryBody.innerHTML = "";
+
+    let total = 0;
+    let selectedCount = 0;
+
+    serviceChecks.forEach(function(check) {
+
+        const option = check.closest(".service-option");
+
+        const quantityInput = option.querySelector(".service-quantity");
+        const copiesInput = option.querySelector(".service-copies");
+
+        quantityInput.disabled = !check.checked;
+        copiesInput.disabled = !check.checked;
+
+        if (check.checked) {
+
+            const serviceName = check.dataset.name;
+            const price = Number(check.dataset.price);
+
+            const pages = Math.max(1, Number(quantityInput.value) || 1);
+            const copies = Math.max(1, Number(copiesInput.value) || 1);
+
+            const quantity = pages * copies;
+            const subtotal = price * quantity;
+
+            total += subtotal;
+            selectedCount++;
+
+            const row = document.createElement("tr");
+
+            const serviceCell = document.createElement("td");
+            serviceCell.textContent = serviceName;
+
+            const quantityCell = document.createElement("td");
+            quantityCell.textContent =
+                pages + " pages × " + copies + " copies";
+
+            const priceCell = document.createElement("td");
+            priceCell.textContent = peso(price);
+
+            const subtotalCell = document.createElement("td");
+            subtotalCell.textContent = peso(subtotal);
+
+            row.appendChild(serviceCell);
+            row.appendChild(quantityCell);
+            row.appendChild(priceCell);
+            row.appendChild(subtotalCell);
+
+            summaryBody.appendChild(row);
+        }
+    });
+
+    grandTotal.textContent = peso(total);
+
+    if (selectedCount === 0) {
+        emptyMessage.style.display = "block";
+        summaryWrapper.style.display = "none";
+    } else {
+        emptyMessage.style.display = "none";
+        summaryWrapper.style.display = "block";
+    }
+}
+
+/* UPDATE TOTAL WHEN INPUT CHANGES */
+serviceChecks.forEach(function(check) {
+    check.addEventListener("change", calculateTotal);
+});
+
+document.querySelectorAll(".service-quantity, .service-copies")
+.forEach(function(input) {
+    input.addEventListener("input", calculateTotal);
+});
+
+/* PREVENT PAST DEADLINE */
+const deadlineInput = document.getElementById("deadline");
+
+const today = new Date();
+const localDate = new Date(
+    today.getTime() - today.getTimezoneOffset() * 60000
+).toISOString().split("T")[0];
+
+deadlineInput.min = localDate;
+
+/* SUBMIT REQUEST */
+requestForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    // Check if at least one printing service is selected
+    const selected = document.querySelector(".service-check:checked");
+
+    if (!selected) {
+        alert("Please select at least one printing service.");
+        return;
+    }
+
+    // Show success popup
+    successPopup.classList.add("show");
+
+});
+
+/* CLOSE SUCCESS POPUP */
+function closeSuccessPopup() {
+
+    successPopup.classList.remove("show");
+
+    // Reset all form fields
+    requestForm.reset();
+
+    // Reset order summary
+    calculateTotal();
+
+}
+
+/* CLOSE POPUP WHEN CLICKING OUTSIDE */
+successPopup.addEventListener("click", function(event) {
+
+    if (event.target === successPopup) {
+        closeSuccessPopup();
+    }
+
+});
+
+/* CLOSE POPUP USING ESCAPE KEY */
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape" &&
+        successPopup.classList.contains("show")) {
+
+        closeSuccessPopup();
+
+    }
+
+});
+
+/* INITIAL CALCULATION */
+calculateTotal();
+</script>
+
+</body>
+</html>

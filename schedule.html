@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule | BIST</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* SUCCESS POPUP */
+.success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(40, 10, 28, 0.65);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.success-overlay.show {
+    display: flex;
+    animation: fadeIn .3s ease;
+}
+
+.success-modal {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 35px 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0,0,0,.2);
+    animation: popup .4s ease;
+}
+
+.success-icon {
+    width: 85px;
+    height: 85px;
+    background: #ffe4f1;
+    color: #e94b9b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    margin: 0 auto 20px;
+    animation: pulse 1s infinite;
+}
+
+.success-modal h2 {
+    color: #c21870;
+    margin-bottom: 12px;
+    font-size: 25px;
+}
+
+.success-modal p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.success-modal button {
+    background: #e94b9b;
+    color: white;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.success-modal button:hover {
+    background: #c21870;
+    transform: scale(1.04);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: scale(.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <a href="index.html" class="logo">BIST<span>PRINT.</span></a>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="services.html">SERVICES</a>
+        <a href="request.html">PRINT REQUEST</a>
+        <a href="schedule.html" class="active">SCHEDULE</a>
+        <a href="tracking.html">TRACK REQUEST</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+        
+    </nav>
+</header>
+
+<!-- BANNER -->
+<section class="page-banner">
+    <h1>Schedule Your Pickup</h1>
+    <p>Choose your preferred date and pickup time.</p>
+</section>
+
+<!-- SCHEDULE FORM -->
+<section class="section">
+
+    <div class="form-container">
+
+        <h2>Pickup Scheduling Form</h2>
+
+        <div class="info-box">
+            Select your preferred schedule. All schedules are subject to confirmation.
+        </div>
+
+        <form id="scheduleForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Student Name *</label>
+                    <input type="text" name="name"
+                           placeholder="Enter student name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Student ID *</label>
+                    <input type="text" name="student_id"
+                           placeholder="Enter student ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Request ID *</label>
+                    <input type="text" name="request_id"
+                           placeholder="Enter request ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Pickup Date *</label>
+                    <input type="date" name="pickup_date"
+                           id="pickupDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Preferred Pickup Time *</label>
+                    <select name="pickup_time" required>
+                        <option value="">Choose time</option>
+                        <option>8:00 AM - 9:00 AM</option>
+                        <option>9:00 AM - 10:00 AM</option>
+                        <option>10:00 AM - 11:00 AM</option>
+                        <option>11:00 AM - 12:00 PM</option>
+                        <option>1:00 PM - 2:00 PM</option>
+                        <option>2:00 PM - 3:00 PM</option>
+                        <option>3:00 PM - 4:00 PM</option>
+                        <option>4:00 PM - 5:00 PM</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number *</label>
+                    <input type="tel" name="contact"
+                           placeholder="09XXXXXXXXX"
+                           pattern="09[0-9]{9}"
+                           maxlength="11"
+                           title="Enter a valid 11-digit Philippine mobile number starting with 09."
+                           required>
+                </div>
+
+                <div class="form-group full">
+                    <label>Additional Notes</label>
+                    <textarea name="notes"
+                              placeholder="Enter your concerns..."></textarea>
+                </div>
+
+                <div class="form-group full">
+                    <button class="btn" type="submit">
+                        SUBMIT SCHEDULE →
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- SUCCESS POPUP -->
+<div class="success-overlay" id="successPopup">
+
+    <div class="success-modal">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>Schedule Successfully Submitted!</h2>
+
+        <p>
+            Your pickup schedule has been successfully submitted.
+            <br><br>
+            Thank you for using BIST PRINT!
+            Please wait for confirmation of your preferred pickup schedule.
+        </p>
+
+        <button type="button" onclick="closeSuccessPopup()">
+            OKAY, THANK YOU!
+        </button>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <h2>BIST PRINT.</h2>
+    <p>© 2026 BIST Printing System. All Rights Reserved.</p>
+</footer>
+
+<script>
+
+/* SET MINIMUM PICKUP DATE TO TODAY */
+const pickupDate = document.getElementById("pickupDate");
+
+const today = new Date();
+const localDate = new Date(
+    today.getTime() - today.getTimezoneOffset() * 60000
+).toISOString().split("T")[0];
+
+pickupDate.min = localDate;
+
+
+/* SUBMIT SCHEDULE */
+document.getElementById("scheduleForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    // Show success popup
+    document.getElementById("successPopup")
+    .classList.add("show");
+
+});
+
+
+/* CLOSE SUCCESS POPUP */
+function closeSuccessPopup() {
+
+    document.getElementById("successPopup")
+    .classList.remove("show");
+
+    // Reset form after closing
+    document.getElementById("scheduleForm").reset();
+
+}
+
+
+/* CLOSE WHEN CLICKING OUTSIDE */
+document.getElementById("successPopup")
+.addEventListener("click", function(event) {
+
+    if (event.target === this) {
+        closeSuccessPopup();
+    }
+
+});
+
+
+/* CLOSE USING ESCAPE KEY */
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Escape" &&
+        document.getElementById("successPopup")
+        .classList.contains("show")
+    ) {
+        closeSuccessPopup();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
